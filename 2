@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+
+public class BankAccount
+{
+    public string AccountHolder { get; set; }
+    public decimal Balance { get; private set; }
+
+    public BankAccount(string accountHolder, decimal initialBalance = 0)
+    {
+        AccountHolder = accountHolder;
+        Balance = initialBalance;
+    }
+
+    public string Deposit(decimal amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+            return ($"Депозит: {amount}, новый баланс: {Balance}");
+        }
+        return ("Сумма депозита должна быть положительной!");
+    }
+
+    public string Withdraw(decimal amount)
+    {
+        if (amount > 0 && amount <= Balance)
+        {
+            Balance -= amount;
+            return ($"Вывод: {amount}, новый баланс: {Balance}");
+        }
+        return ("Неверная сумма вывода средств!");
+    }
+
+    public string GetBalance()
+    {
+        return ($"Корректный баланс: {Balance}");
+    }
+}
+
+
+public class Program
+{
+    public static void Main()
+    {
+        BankAccount account = new BankAccount("Ника", 1000);
+        Console.WriteLine(account.Deposit(500));
+        Console.WriteLine(account.Withdraw(200));
+        Console.WriteLine(account.GetBalance());
+    }
+}
