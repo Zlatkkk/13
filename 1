@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+
+public class Employee
+{
+    public string Name { get; set; }
+    public decimal Salary { get; set; }
+
+    public Employee(string name, decimal salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public virtual string GetInfo()
+    {
+        return ($"Имя: {Name}, Зарплата: {Salary}");
+            
+            
+            
+            
+            
+    }
+}
+
+public class Manager : Employee
+{
+    public int TeamSize { get; set; }
+
+    public Manager(string name, decimal salary, int teamSize)
+        : base(name, salary)
+    {
+        TeamSize = teamSize;
+    }
+
+    public override string GetInfo()
+    {
+        return ($"Имя: {Name}, Зарпата: {Salary}, Размер команды: {TeamSize}");
+    }
+}
+
+public class Developer : Employee
+{
+    public string ProgrammingLanguage { get; set; }
+
+    public Developer(string name, decimal salary, string programmingLanguage)
+        : base(name, salary)
+    {
+        ProgrammingLanguage = programmingLanguage;
+    }
+
+    public override string GetInfo()
+    {
+        return ($"Имя: {Name}, Зарплата: {Salary}, Язык программирования: {ProgrammingLanguage}");
+    }
+}
+
+
+public class Program
+{
+    public static void Main()
+    {
+        Manager manager = new Manager("Лиза", 80000, 5);
+        Developer developer = new Developer("Настя", 60000, "C#");
+
+        Console.WriteLine(manager.GetInfo());
+        Console.WriteLine(developer.GetInfo());
+    }
+}
