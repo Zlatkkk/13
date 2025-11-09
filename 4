@@ -1,0 +1,94 @@
+using System;
+
+
+
+public class Course
+{
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string Author { get; set; }
+    public decimal Price { get; set; }
+
+    public Course(string title, string description, string author, decimal price)
+    {
+        Title = title;
+        Description = description;
+        Author = author;
+        Price = price;
+    }
+
+    public override string ToString()
+    {
+        return ($"Курс: {Title}, Автор: {Author}, Цена: {Price:C}");
+    }
+}
+
+public class VideoCourse : Course
+{
+    public int NumberOfVideos { get; set; }
+    public int TotalDuration { get; set; } 
+
+    public VideoCourse(string title, string description, string author, decimal price, int numberOfVideos, int totalDuration)
+        : base(title, description, author, price)
+    {
+        NumberOfVideos = numberOfVideos;
+        TotalDuration = totalDuration;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + ($",Количество видео {NumberOfVideos}, общий объем текста: {TotalDuration} минут");
+    }
+}
+
+public class TextCourse : Course
+{
+    public int NumberOfChapters { get; set; }
+    public int TotalTextVolume { get; set; } 
+
+    public TextCourse(string title, string description, string author, decimal price, int numberOfChapters, int totalTextVolume)
+        : base(title, description, author, price)
+    {
+        NumberOfChapters = numberOfChapters;
+        TotalTextVolume = totalTextVolume;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + ($"Количество видео: {NumberOfChapters}, Общий объем текста: {TotalTextVolume} работа");
+    }
+}
+
+public class InteractiveCourse : Course
+{
+    public int NumberOfExercises { get; set; }
+    public string TestingSystem { get; set; }
+
+    public InteractiveCourse(string title, string description, string author, decimal price, int numberOfExercises, string testingSystem)
+        : base(title, description, author, price)
+    {
+        NumberOfExercises = numberOfExercises;
+        TestingSystem = testingSystem;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + ($" Количество упражнений: {NumberOfExercises}, Система тестирования: {TestingSystem}");
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+          
+        VideoCourse videoCourse = new VideoCourse("Python для начинающих", "Учимся программировать на Python с нуля", "Ирина Олеговна", 99.99m, 20, 150);
+        TextCourse textCourse = new TextCourse("Основы науки о данных", "Введение в концепции науки о данных", "Александр Н", 79.99m, 10, 5000);
+        InteractiveCourse interactiveCourse = new InteractiveCourse("Учебный лагерь по веб-разработке", "Создание веб-сайтов с нуля", "Максим Сергеевич", 149.99m, 15, "Автоматическая оценка");
+
+         
+        Console.WriteLine(videoCourse);
+        Console.WriteLine(textCourse);
+        Console.WriteLine(interactiveCourse);
+    }
+}
