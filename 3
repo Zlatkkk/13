@@ -1,0 +1,183 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        public enum AvailabilityStatus
+                {
+            Available,
+            CheckedOut,
+            Reserved,
+            Lost
+                }
+
+
+        public abstract class LibraryMaterial
+        {
+            public string Title;
+            public string Author;
+            public int Year;
+            public AvailabilityStatus Status;
+
+
+            public virtual bool Matches(string query)
+            {
+                if (query == null || query.Trim() == "")
+                {
+                    return true;
+                }
+
+                query = query.Trim();
+                if (Title != null && Title.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+
+                if (Author != null && Author.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+
+                if (Year.ToString().Contains(query))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+
+        public class Book : LibraryMaterial
+        {
+            public int PageCount;
+            public string ISBN;
+
+            public override bool Matches(string query)
+            {
+
+                if (base.Matches(query))
+                {
+                    return true;
+                }
+
+
+                if (ISBN != null && ISBN.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+
+                if (PageCount.ToString().Contains(query))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+
+            public enum PublicationFrequency
+            {
+                Weekly,
+                Monthly,
+                Quarterly,
+                SemiAnnual,
+                Yearly
+            }
+
+
+            public class Magazine : LibraryMaterial
+            {
+                public int IssueNumber;
+                public PublicationFrequency Frequency;
+
+                public override bool Matches(string query)
+                {
+
+                    if (base.Matches(query))
+                    {
+                        return true;
+                    }
+
+
+                    if (IssueNumber.ToString().Contains(query))
+                    {
+                        return true;
+                    }
+
+                    if (Frequency.ToString().IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+
+
+            public class Video : LibraryMaterial
+            {
+                public TimeSpan Duration;
+                public double Rating;
+
+                public override bool Matches(string query)
+                {
+
+                    if (base.Matches(query))
+                    {
+                        return true;
+                    }
+
+
+                    if (Duration.TotalMinutes.ToString().Contains(query))
+                    {
+                        return true;
+                    }
+
+                    if (Rating.ToString().Contains(query))
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+
+
+            public class Audiobook : LibraryMaterial
+            {
+                public TimeSpan Duration;
+                public string Narrator;
+
+                public override bool Matches(string query)
+                {
+
+                    if (base.Matches(query))
+                    {
+                        return true;
+                    }
+
+
+                    if (Duration.TotalMinutes.ToString().Contains(query))
+                    {
+                        return true;
+                    }
+
+                    if (Narrator != null && Narrator.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+        }
+
+    }
+
+}
